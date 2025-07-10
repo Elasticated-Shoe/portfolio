@@ -1,0 +1,19 @@
+title: Jacob Metcalfe
+description: >
+  Senior Software Engineer
+baseurl: ""
+hero: I'm a full stack developer with a knack for quickly adapting to new domains and solving complex problems with clean, scalable solutions.
+about: |
+  Hi, I'm a software engineer with a passion for building-whether it's elegant code, a DIY project, or someday, a house of my own. When I'm not working on software, you'll probably find me outdoors cycling, hiking, or tending to my garden.
+  I'm a big fan of The Office (US), a devoted pizza enthusiast, and a proud reader of every Discworld novel-yes, all of them. I believe good engineering is part logic, part creativity, and a lot of iteration-much like any great hobby.
+  I'm always excited to learn, build, and share. Thanks for stopping by!
+url: "https://getjacobajobin.tech"
+github: https://github.com/Elasticated-Shoe
+linkedin: https://www.linkedin.com/in/jacob-metcalfe-60576214b/
+theme: minima
+exclude:
+  - node_modules
+  - README.md
+  - Gemfile*
+  - .github
+  - cv-templates

@@ -1,0 +1,25 @@
+# Jekyll and Ruby
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+vendor/
+Gemfile.lock
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Node (if used for assets)
+node_modules/
+
+# Logs
+*.log
+
+# Byebug (Ruby debugger)
+.byebug_history
+
+assets/cv

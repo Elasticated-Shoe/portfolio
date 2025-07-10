@@ -1,0 +1,34 @@
+---
+layout: default
+---
+
+<link rel="stylesheet" href="/assets/custom-home.css">
+<link rel="stylesheet" href="/assets/minima-overrides.css">
+
+<div class="parallax-hero">
+  <div class="hero-top">
+    <div class="hero-name">{{ site.title }}</div>
+    <div class="hero-title">{{ site.description }}</div>
+  </div>
+  <div class="hero-bottom">
+    <span class="hero-professional">{{ site.hero }}</span>
+  </div>
+</div>
+
+<section class="about-section" style="margin:2rem 0 3rem 0; padding:2rem; background:#f9f9f9; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+  <h2>About Me</h2>
+  <p>{{ site.about }}</p>
+</section>
+
+<!-- Collage Section -->
+<section class="collage-section" style="margin:2rem 0 3rem 0;">
+  <div class="collage-grid">
+    {% assign collage_images = site.static_files | where_exp: "file", "file.path contains '/assets/home/'" %}
+    {% for image in collage_images %}
+      <div class="collage-item">
+        <img src="{{ image.path }}" alt="Collage image" loading="lazy" />
+      </div>
+    {% endfor %}
+  </div>
+</section>
+

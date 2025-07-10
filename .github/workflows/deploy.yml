@@ -1,0 +1,78 @@
+name: Build and Deploy Jekyll Site with CV
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    env:
+      PROFILE: ${{ secrets.PROFILE }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Clone cv-templates repo
+        uses: actions/checkout@v4
+        with:
+          repository: Elasticated-Shoe/cv-templates
+          path: cv-templates
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install CV template dependencies
+        run: npm ci
+        working-directory: cv-templates
+
+
+      - name: Decode PROFILE secret and write to profile.yaml
+        run: |
+          echo "$PROFILE" | base64 --decode > profile.yaml
+        working-directory: cv-templates
+
+      - name: Build CV template
+        run: npm run build
+        working-directory: cv-templates
+
+      - name: Copy CV build to assets/cv
+        run: |
+          rm -rf assets/cv
+          mkdir -p assets/cv
+          cp -r cv-templates/dist/* assets/cv/
+
+      - name: Update asset paths in CV index.html
+        run: |
+          sed -i "s|/assets/\(index-[^\"']*\\.js\)|/assets/cv/assets/\1|g" assets/cv/index.html
+          sed -i "s|/assets/\(index-[^\"']*\\.css\)|/assets/cv/assets/\1|g" assets/cv/index.html
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
