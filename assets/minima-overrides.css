@@ -52,3 +52,7 @@
 .site-footer svg {
   vertical-align: middle;
 }
+
+body {
+  overflow-x: hidden;
+}
